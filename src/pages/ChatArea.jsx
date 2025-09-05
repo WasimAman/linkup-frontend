@@ -65,7 +65,7 @@ const ChatArea = () => {
                 return newSet;
             });
 
-            const socket = new SockJS('http://localhost:8080/ws');
+            const socket = new SockJS('https://linkupchat.up.railway.app/ws');
             stompClient.current = Stomp.over(socket);
 
             stompClient.current.connect({

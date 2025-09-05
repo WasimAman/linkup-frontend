@@ -58,7 +58,7 @@ const PrivateChat = ({
         const loadMessageHistory = async () => {
             try {
                 const response = await fetch(
-                    `http://localhost:8080/api/messages/private?user1=${currentUser}&user2=${recipientUser}`
+                    `https://linkupchat.up.railway.app/api/messages/private?user1=${currentUser}&user2=${recipientUser}`
                 );
                 if (response.ok && isMounted) {
                     const history = await response.json();
