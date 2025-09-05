@@ -69,7 +69,7 @@ const Signup = () => {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         className="username-input"
-                        maxLength={20}
+                        maxLength={40}
                         required
                         disabled={isLoading}
                     />

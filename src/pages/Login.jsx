@@ -56,7 +56,7 @@ const Login = () => {
                         value={email}
                         onChange={(e) => SetEmail(e.target.value)}
                         className="username-input"
-                        maxLength={30}
+                        maxLength={40}
                         required
                         disabled={isLoading}
                     />
