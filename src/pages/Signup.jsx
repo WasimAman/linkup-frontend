@@ -1,11 +1,11 @@
-import {useState} from "react";
-import {useNavigate} from "react-router-dom";
-import {authService} from "../services/authService.js";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { authService } from "../services/authService.js";
 import '../styles/Signup.css';
 
 const Signup = () => {
 
-    const[username, setUsername] = useState('');
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
     const [message, setMessage] = useState('');
@@ -17,9 +17,9 @@ const Signup = () => {
         setMessage('');
         setIsLoading(true);
 
-        try{
+        try {
             const result = await authService.signup(username, email, password);
-            if(result.success){
+            if (result.success) {
                 setMessage('Account created successfully! Please login');
                 setTimeout(() => {
                     navigate('/login');
@@ -27,8 +27,8 @@ const Signup = () => {
             }
         }
         catch (error) {
-                setMessage(error.message || 'Signup failed, please try again.');
-                console.error('Signup failed', error);
+            setMessage('Signup failed, please try again.');
+            console.error('Signup failed', error);
         }
         finally {
             setIsLoading(false);
@@ -46,6 +46,12 @@ const Signup = () => {
                 </div>
 
                 <form onSubmit={handleSignup} className="signup-form">
+                    {message && (
+                        <p className="auth-message"
+                            style={{ color: message.includes('successfully') ? '#4CaF50' : '#ff6b6b' }}>
+                            {message}
+                        </p>
+                    )}
                     <input
                         type="text"
                         placeholder="Username"
@@ -55,7 +61,7 @@ const Signup = () => {
                         maxLength={20}
                         required
                         disabled={isLoading}
-                        />
+                    />
 
                     <input
                         type="email"
@@ -79,18 +85,11 @@ const Signup = () => {
                         disabled={isLoading}
                     />
                     <button type="submit"
-                            disabled={!username.trim() || !email.trim() || !password.trim() || isLoading}
-                            className="join-btn"
-                            >
+                        disabled={!username.trim() || !email.trim() || !password.trim() || isLoading}
+                        className="join-btn"
+                    >
                         {isLoading ? 'Creating Account...' : 'Signup'}
                     </button>
-
-                    {message && (
-                        <p className="auth-message"
-                           style={{color: message.includes('successfully') ? '#4CaF50' : '#ff6b6b'}}>
-                            {message}
-                        </p>
-                    )}
                 </form>
             </div>
         </div>

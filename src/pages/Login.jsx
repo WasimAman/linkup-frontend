@@ -1,11 +1,11 @@
-import {useState} from "react";
-import {useNavigate} from "react-router-dom";
-import {authService} from "../services/authService.js";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { authService } from "../services/authService.js";
 import '../styles/Login.css';
 
 const Login = () => {
 
-    const[username, setUsername] = useState('');
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
     const [isLoading, setIsLoading] = useState(false);
@@ -16,17 +16,17 @@ const Login = () => {
         setMessage('');
         setIsLoading(true);
 
-        try{
+        try {
             const result = await authService.login(username, password);
-            if(result.success){
+            if (result.success) {
                 setMessage('Login successful');
                 setTimeout(() => {
-                    navigate('/');
+                    navigate('/chatarea');
                 }, 2000);
             }
         }
         catch (error) {
-            setMessage(error.message || 'login failed, please try again.');
+            setMessage('login failed, please try again.');
             console.error('login failed', error);
         }
         finally {
@@ -34,17 +34,22 @@ const Login = () => {
         }
     }
 
-
-
     return (
         <div className="login-container theme-blue">
             <div className="login-box">
                 <div className="login-header">
                     <h1>login</h1>
-                    <p>Create an account to start chatting</p>
+                    <p>Login your account to start chatting</p>
                 </div>
 
                 <form onSubmit={handleLogin} className="login-form">
+                    {message && (
+                        <p className="auth-message"
+                            style={{ color: message.includes('successful') ? '#4CaF50' : '#ff6b6b' }}>
+                            {message}
+                        </p>
+                    )}
+
                     <input
                         type="text"
                         placeholder="Username"
@@ -67,18 +72,13 @@ const Login = () => {
                         disabled={isLoading}
                     />
                     <button type="submit"
-                            disabled={!username.trim() || !password.trim() || isLoading}
-                            className="login-btn"
+                        disabled={!username.trim() || !password.trim() || isLoading}
+                        className="login-btn"
                     >
                         {isLoading ? 'Logging in...' : 'login'}
                     </button>
 
-                    {message && (
-                        <p className="auth-message"
-                           style={{color: message.includes('successful') ? '#4CaF50' : '#ff6b6b'}}>
-                            {message}
-                        </p>
-                    )}
+
                 </form>
             </div>
         </div>
