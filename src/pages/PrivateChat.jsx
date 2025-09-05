@@ -1,18 +1,21 @@
 import React, { useState, useEffect, useRef } from 'react';
+import EmojiPicker from 'emoji-picker-react';
 import '../styles/PrivateChat.css';
 
 const PrivateChat = ({
-                         currentUser,
-                         recipientUser,
-                         userColor,
-                         stompClient,
-                         onClose,
-                         registerPrivateMessageHandler,
-                         unregisterPrivateMessageHandler
-                     }) => {
+    currentUser,
+    recipientUser,
+    userColor,
+    stompClient,
+    onClose,
+    registerPrivateMessageHandler,
+    unregisterPrivateMessageHandler
+}) => {
     const [messages, setMessages] = useState([]);
     const [message, setMessage] = useState('');
     const [isLoading, setIsLoading] = useState(true);
+    const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+
     const messagesEndRef = useRef(null);
     const messageIdsRef = useRef(new Set());
 
@@ -121,6 +124,7 @@ const PrivateChat = ({
                 if (stompClient.current.connected) {
                     stompClient.current.send("/app/chat.sendPrivateMessage", {}, JSON.stringify(privateMessage));
                     setMessage('');
+                    setShowEmojiPicker(false);
                 } else {
                     setMessages(prev => prev.filter(msg => msg.id !== messageId));
                     messageIdsRef.current.delete(messageId);
@@ -195,7 +199,25 @@ const PrivateChat = ({
             </div>
 
             <div className="private-message-input-container">
+                {showEmojiPicker && (
+                    <div className="emoji-picker">
+                        <EmojiPicker
+                            onEmojiClick={(emojiData) => {
+                                setMessage((prev) => prev + emojiData.emoji);
+                                setShowEmojiPicker(false);
+                            }}
+                        />
+                    </div>
+                )}
+
                 <form onSubmit={sendPrivateMessage} className="private-message-form">
+                    <button
+                        type="button"
+                        onClick={() => setShowEmojiPicker(!showEmojiPicker)}
+                        className="emoji-btn"
+                    >
+                        😀
+                    </button>
                     <input
                         type="text"
                         placeholder={`Message ${recipientUser}...`}

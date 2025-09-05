@@ -5,7 +5,7 @@ import '../styles/Login.css';
 
 const Login = () => {
 
-    const [username, setUsername] = useState('');
+    const [email,SetEmail] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
     const [isLoading, setIsLoading] = useState(false);
@@ -17,7 +17,7 @@ const Login = () => {
         setIsLoading(true);
 
         try {
-            const result = await authService.login(username, password);
+            const result = await authService.login(email, password);
             if (result.success) {
                 setMessage('Login successful');
                 setTimeout(() => {
@@ -52,11 +52,11 @@ const Login = () => {
 
                     <input
                         type="text"
-                        placeholder="Username"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
+                        placeholder="Email"
+                        value={email}
+                        onChange={(e) => SetEmail(e.target.value)}
                         className="username-input"
-                        maxLength={20}
+                        maxLength={30}
                         required
                         disabled={isLoading}
                     />
@@ -72,7 +72,7 @@ const Login = () => {
                         disabled={isLoading}
                     />
                     <button type="submit"
-                        disabled={!username.trim() || !password.trim() || isLoading}
+                        disabled={!email.trim() || !password.trim() || isLoading}
                         className="login-btn"
                     >
                         {isLoading ? 'Logging in...' : 'login'}

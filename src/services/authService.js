@@ -51,11 +51,11 @@ const generateUserColor = () => {
 
 export const authService = {
 
-    login: async (username, password) => {
+    login: async (email, password) => {
         try{
 
             const response = await api.post('/auth/login', {
-                username,
+                email,
                 password
             });
 

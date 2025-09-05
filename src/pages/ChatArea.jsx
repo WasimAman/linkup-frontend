@@ -4,6 +4,7 @@ import SockJS from 'sockjs-client';
 import { Stomp } from '@stomp/stompjs';
 import { authService } from '../services/authService';
 import PrivateChat from './PrivateChat';
+import EmojiPicker from 'emoji-picker-react';
 import '../styles/ChatArea.css';
 
 const ChatArea = () => {
@@ -30,8 +31,6 @@ const ChatArea = () => {
     const messagesEndRef = useRef(null);
     const usersListRef = useRef(null);
     const typingTimeoutRef = useRef(null);
-
-    const emojis = ['😀', '😂', '😍', '🤔', '👍', '❤️', '🎉', '🔥', '😎', '⭐', '✨', '💯'];
 
     if (!currentUser) {
         return null;
@@ -219,11 +218,6 @@ const ChatArea = () => {
         }
     };
 
-    const addEmoji = (emoji) => {
-        setMessage(prev => prev + emoji);
-        setShowEmojiPicker(false);
-    };
-
     const formatTime = (timestamp) => {
         return new Date(timestamp).toLocaleTimeString('en-US', {
             timeZone: 'Asia/Kolkata',
@@ -314,11 +308,12 @@ const ChatArea = () => {
                 <div className="input-area">
                     {showEmojiPicker && (
                         <div className="emoji-picker">
-                            {emojis.map(emoji => (
-                                <button key={emoji} onClick={() => addEmoji(emoji)}>
-                                    {emoji}
-                                </button>
-                            ))}
+                            <EmojiPicker
+                                onEmojiClick={(emojiData) => {
+                                    setMessage((prev) => prev + emojiData.emoji);
+                                    setShowEmojiPicker(false);
+                                }}
+                            />
                         </div>
                     )}
 

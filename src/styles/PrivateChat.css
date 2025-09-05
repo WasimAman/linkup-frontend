@@ -302,3 +302,47 @@
     background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
     box-shadow: 0 2px 8px rgba(30, 60, 114, 0.3);
 }
+
+/* --- Emoji Button --- */
+.emoji-btn {
+    background: transparent;
+    border: none;
+    font-size: 22px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.emoji-btn:hover {
+    transform: scale(1.2);
+}
+
+/* --- Emoji Picker --- */
+.private-message-input-container {
+    position: relative; /* 👈 important for absolute emoji picker */
+}
+
+.emoji-picker-container {
+    position: absolute;
+    bottom: 65px; /* input box ke upar */
+    left: 15px;
+    z-index: 2000;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+    border-radius: 12px;
+    overflow: hidden;
+    animation: fadeIn 0.2s ease-out;
+}
+
+/* Picker ko thoda smooth animate karne ke liye */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
