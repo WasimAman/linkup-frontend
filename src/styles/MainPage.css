@@ -1,0 +1,256 @@
+/* ================= BASE STYLES ================= */
+.mainpage-container {
+    min-height: calc(100vh - 70px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Background Waves */
+.mainpage-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="rgba(255,255,255,0.08)" d="M0,160L48,176C96,192,192,224,288,229.3C384,235,480,213,576,176C672,139,768,85,864,101.3C960,117,1056,203,1152,224C1248,245,1344,203,1392,181.3L1440,160L1440,320L0,320Z"></path></svg>');
+    background-size: cover;
+    background-repeat: no-repeat;
+    pointer-events: none;
+}
+
+.mainpage-content {
+    text-align: center;
+    max-width: 900px;
+    width: 100%;
+    animation: fadeInUp 0.8s ease-out;
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ================= HEADER ================= */
+.mainpage-header {
+    margin-bottom: 4rem;
+}
+
+.mainpage-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+}
+
+.mainpage-header h1 {
+    color: white;
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    text-shadow: 0 2px 6px rgba(0,0,0,0.25);
+    line-height: 1.2;
+}
+
+.mainpage-header p {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.3rem;
+    font-weight: 300;
+    margin: 0;
+}
+
+/* ================= FEATURES ================= */
+.mainpage-features {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 per row */
+    gap: 2.5rem;
+    margin-bottom: 4rem;
+    justify-items: center;
+}
+
+/* Feature Card */
+.feature {
+    position: relative;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 2.5rem 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    transition: all 0.4s ease;
+    animation: floatCard 6s ease-in-out infinite;
+    cursor: pointer;
+    overflow: hidden;
+    width: 90%;
+    max-width: 380px;
+}
+
+/* Floating Card Animation */
+@keyframes floatCard {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+/* Glow Border on Hover */
+.feature::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 20px;
+    padding: 2px;
+    background: linear-gradient(135deg, #00c6ff, #1e3c72, #2a5298);
+    -webkit-mask: 
+      linear-gradient(#fff 0 0) content-box, 
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.feature:hover::before {
+    opacity: 1;
+}
+
+/* Hover Fun Effect */
+.feature:hover {
+    transform: translateY(-12px) scale(1.05);
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.3);
+}
+
+/* Feature Icon */
+.feature-icon {
+    font-size: 3rem;
+    margin-bottom: 1.2rem;
+    display: inline-block;
+}
+
+/* === Different Animations for Each Feature === */
+.feature:nth-child(1) .feature-icon { animation: rotateGlobe 4s linear infinite; }
+.feature:nth-child(2) .feature-icon { animation: pulseUser 2s ease-in-out infinite; }
+.feature:nth-child(3) .feature-icon { animation: shakeLock 3s ease-in-out infinite; }
+.feature:nth-child(4) .feature-icon { animation: spinFun 5s linear infinite; }
+
+/* Icon Animations */
+@keyframes rotateGlobe {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes pulseUser {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+}
+
+@keyframes shakeLock {
+    0%, 100% { transform: rotate(0); }
+    25% { transform: rotate(-10deg); }
+    50% { transform: rotate(10deg); }
+    75% { transform: rotate(-5deg); }
+}
+
+@keyframes spinFun {
+    0% { transform: rotate(0); }
+    100% { transform: rotate(360deg); }
+}
+
+.feature h3 {
+    color: white;
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 0.6rem;
+}
+
+.feature p {
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+/* Stagger Animation */
+.feature:nth-child(1) { animation-delay: 0.1s; }
+.feature:nth-child(2) { animation-delay: 0.3s; }
+.feature:nth-child(3) { animation-delay: 0.5s; }
+.feature:nth-child(4) { animation-delay: 0.7s; }
+
+/* ================= ACTIONS ================= */
+.mainpage-actions {
+    animation: slideInUp 0.6s ease-out 0.4s both;
+}
+
+.auth-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.primary-btn,
+.secondary-btn {
+    padding: 1rem 2.5rem;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: inline-block;
+    min-width: 120px;
+    text-align: center;
+}
+
+/* ================= THEME – Blue ================= */
+.theme-blue {
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 40%, #00c6ff 100%);
+}
+
+.theme-blue .primary-btn {
+    background: #00c6ff;
+    border: 2px solid #00c6ff;
+    color: white;
+    box-shadow: 0 4px 15px rgba(0, 198, 255, 0.4);
+}
+
+.theme-blue .primary-btn:hover {
+    background: rgba(0, 198, 255, 0.15);
+    border-color:#00c6ff;
+    color: #00c6ff;
+}
+
+.theme-blue .secondary-btn {
+    border: 2px solid #00c6ff;
+    color: #00c6ff;
+}
+
+.theme-blue .secondary-btn:hover {
+    background: #00c6ff;
+    color: white;
+    box-shadow: 0 4px 15px rgba(0, 198, 255, 0.4);
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 768px) {
+    .mainpage-header h1 { font-size: 2.5rem; }
+    .mainpage-header p { font-size: 1.1rem; }
+    .mainpage-features { grid-template-columns: 1fr; gap: 1.5rem; }
+    .feature { padding: 1.5rem; width: 100%; }
+    .auth-buttons { flex-direction: column; align-items: center; }
+    .primary-btn, .secondary-btn { width: 200px; }
+}
+
+@media (max-width: 480px) {
+    .mainpage-container { padding: 1rem; }
+    .mainpage-header h1 { font-size: 2rem; }
+    .mainpage-header p { font-size: 1rem; }
+    .feature { padding: 1rem; }
+    .feature h3 { font-size: 1.1rem; }
+    .feature p { font-size: 0.9rem; }
+}
